@@ -1,0 +1,137 @@
+/* =============== NAVBAR WRAPPER =============== */
+.navbar {
+  width: 100%;
+  height: 70px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 35px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* =============== LEFT SECTION =============== */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.brand-highlight {
+  font-size: 26px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #7b5bff, #5ad4ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.5px;
+}
+
+/* =============== CENTER LINKS =============== */
+.navbar-center {
+  display: flex;
+  gap: 22px;
+}
+
+.navbar-link {
+  color: #333;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 17px;
+  transition: 0.25s ease;
+  position: relative;
+}
+
+.navbar-link:hover {
+  color: #6b4bff;
+}
+
+/* Cool underline animation */
+.navbar-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #6b4bff, #4beaff);
+  border-radius: 2px;
+  transition: 0.4s ease;
+}
+
+.navbar-link:hover::after {
+  width: 100%;
+}
+
+/* =============== RIGHT SIDE =============== */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Profile avatar bubble */
+.profile-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6b4bff, #4beaff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.profile-avatar:hover {
+  transform: scale(1.1);
+}
+
+/* Logout button */
+.logout-btn {
+  background: linear-gradient(90deg, #ff6b6b, #ff4949);
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: 0.3s ease;
+  box-shadow: 0 3px 8px rgba(255, 80, 80, 0.4);
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(90deg, #ff4949, #ff2e2e);
+}
+
+/* =============== RESPONSIVE =============== */
+@media (max-width: 768px) {
+  .navbar {
+    height: 75px;
+    padding: 0 20px;
+  }
+
+  .navbar-center {
+    display: none;
+  }
+
+  .brand-highlight {
+    font-size: 22px;
+  }
+}
+

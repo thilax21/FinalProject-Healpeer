@@ -1,0 +1,217 @@
+/* .popup-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .popup-box {
+    background: #fff;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 12px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: popupAppear 0.3s ease-out;
+  }
+  
+  @keyframes popupAppear {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .blog-title-input {
+    font-size: 1.8rem;
+    font-weight: bold;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    padding: 10px 0;
+    outline: none;
+  }
+  
+  .blog-title-input:focus {
+    border-bottom-color: #0077ff;
+  }
+  
+  .blog-content-textarea {
+    font-size: 1.1rem;
+    min-height: 200px;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    padding: 10px 0;
+    outline: none;
+    resize: vertical;
+  }
+  
+  .blog-content-textarea:focus {
+    border-bottom-color: #0077ff;
+  }
+  
+  .upload-btn {
+    cursor: pointer;
+    color: #0077ff;
+    font-weight: 500;
+  }
+  
+  .image-preview img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .popup-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  .cancel-btn {
+    background: #ddd;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .cancel-btn:hover { background: #ccc; }
+  
+  .publish-btn {
+    background: #0077ff;
+    color: #fff;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .publish-btn:hover { background: #005fcc; }
+   */
+
+   /* Fullscreen overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+  z-index: 999;
+}
+
+/* Popup box */
+.popup-box {
+  background: #ffffff;
+  width: 90%;
+  max-width: 600px;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: popupShow .3s ease-in-out;
+}
+
+@keyframes popupShow {
+  from { transform: scale(0.9); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #4338ca;
+}
+
+.close-btn {
+  font-size: 22px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #666;
+}
+
+.blog-title-input {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+.image-preview img {
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 12px;
+}
+
+.upload-btn {
+  display: inline-block;
+  background: #eef2ff;
+  color: #4338ca;
+  padding: 10px 16px;
+  border-radius: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.blog-content-textarea {
+  width: 100%;
+  height: 180px;
+  padding: 12px;
+  margin-top: 15px;
+  font-size: 15px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.popup-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancel-btn {
+  background: #f3f4f6;
+  padding: 10px 16px;
+  border-radius: 10px;
+}
+
+.publish-btn {
+  background: #4f46e5;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+}

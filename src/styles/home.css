@@ -1,0 +1,522 @@
+/* body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #cce5ff, #e6ccff);
+  color: #333;
+}
+
+.home-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 30px;
+  margin: 40px 0;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  color: #fff;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav a {
+  margin: 0 15px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.hero {
+  text-align: center;
+}
+
+.buttons button {
+  padding: 12px 24px;
+  margin: 10px;
+  border: none;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  cursor: pointer;
+}
+
+.section h3 {
+  font-size: 2em;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 20px;
+  width: 250px;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.footer {
+  text-align: center;
+}
+.footer a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+} */
+
+/* body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #e0f7fa, #fce4ec);
+  color: #333;
+}
+
+.home-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.logo {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #6a1b9a;
+}
+
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+}
+
+.start-btn {
+  background-color: #ab47bc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 0;
+}
+
+.hero-text {
+  max-width: 600px;
+}
+
+.hero-text h1 {
+  font-size: 2.5em;
+  color: #4a148c;
+}
+
+.hero-text p {
+  font-size: 1.2em;
+  margin: 20px 0;
+}
+
+.hero-buttons button {
+  padding: 12px 24px;
+  margin: 10px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.primary {
+  background-color: #8e24aa;
+  color: white;
+}
+
+.secondary {
+  background-color: white;
+  color: #8e24aa;
+  border: 2px solid #8e24aa;
+}
+
+.section {
+  padding: 60px 0;
+  text-align: center;
+}
+
+.section h2 {
+  font-size: 2em;
+  margin-bottom: 30px;
+  color: #6a1b9a;
+}
+
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 20px;
+  padding: 20px;
+  width: 250px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial {
+  background-color: #f3e5f5;
+  padding: 30px;
+  border-radius: 20px;
+  max-width: 600px;
+  margin: auto;
+  font-style: italic;
+}
+
+.footer {
+  text-align: center;
+  padding: 30px 0;
+  color: #777;
+}
+
+.footer a {
+  color: #777;
+  text-decoration: none;
+  margin: 0 10px;
+} */
+/* Base styles */
+/* body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #d0f0f7, #f3d9f5);
+  color: #333;
+}
+
+.home-wrapper {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Header */
+/* .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.logo {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #6a1b9a;
+}
+
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+}
+
+.register-btn {
+  background-color: #ab47bc;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+}  */
+
+/* Hero Section */
+/* .hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 0;
+  flex-wrap: wrap;
+}
+
+.hero-text {
+  max-width: 600px;
+}
+
+.hero-text h1 {
+  font-size: 2.8em;
+  color: #4a148c;
+}
+
+.hero-text h1 span {
+  color: #ab47bc;
+}
+
+.hero-text p {
+  font-size: 1.2em;
+  margin: 20px 0;
+}
+
+.hero-buttons .btn {
+  padding: 12px 24px;
+  margin: 10px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.primary {
+  background-color: #8e24aa;
+  color: white;
+}
+
+.secondary {
+  background-color: white;
+  color: #8e24aa;
+  border: 2px solid #8e24aa;
+}
+
+.hero-image img {
+  max-width: 100%;
+  border-radius: 20px;
+}
+
+/* Services */
+/* .services h2 {
+  text-align: center;
+  font-size: 2em;
+  color: #6a1b9a;
+}
+
+.service-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.service-card {
+  background-color: white;
+  border-radius: 20px;
+  padding: 20px;
+  width: 250px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+}
+
+.icon {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+/* Testimonials */
+/* .testimonials h2 {
+  text-align: center;
+  font-size: 2em;
+  color: #6a1b9a;
+}
+
+.testimonial-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.testimonial-card {
+  background-color: #f3e5f5;
+  padding: 30px;
+  border-radius: 20px;
+  max-width: 300px;
+  font-style: italic;
+}
+
+/* CTA */
+/* .cta {
+  text-align: center;
+  padding: 60px 0;
+}
+
+.cta h2 {
+  font-size: 2em;
+  color: #6a1b9a;
+}
+
+.cta p {
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+Footer  */ 
+/* .footer {
+  text-align: center;
+  padding: 30px 0;
+  color: #777;
+  border-top: 1px solid #ddd;
+}
+
+.footer-links a {
+  color: #777;
+  text-decoration: none;
+  margin: 0 10px;
+} */
+
+/* Animations */
+/* .fade-in {
+  animation: fadeIn 1.2s ease-in forwards;
+  opacity: 0;
+}
+
+.slide-up {
+  animation: slideUp 1.2s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+} */
+/* body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #d0f0f7, #f3d9f5);
+  color: #333;
+}
+
+.home {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Glassmorphism */
+
+/* HealPeerHome.css */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #c2d3ff, #e4caff);
+  color: #2e2e2e;
+}
+
+.healpeer-home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navbar {
+  width: 100%;
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #6c63ff;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  font-size: 1rem;
+}
+
+.contact-btn {
+  background: #6c63ff;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.contact-btn:hover {
+  background: #5548d9;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 5rem;
+  animation: fadeIn 2s ease-in;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  background: url('/avatar-placeholder.png') no-repeat center/cover;
+  border-radius: 50%;
+  margin-bottom: 2rem;
+}
+
+.hero-text h1 {
+  font-size: 2.5rem;
+  color: #6c63ff;
+}
+.hero-text p {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+.subtext {
+  font-style: italic;
+  color: #555;
+}
+.trust {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
