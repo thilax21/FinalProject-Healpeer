@@ -242,7 +242,7 @@ const BlogCard = ({ blog }) => {
 
   // Logic to determine which image to show
   const blogImage = blog.imageUrl 
-    ? (blog.imageUrl.startsWith('http') ? blog.imageUrl : `http://localhost:3000${blog.imageUrl}`)
+    ? (blog.imageUrl.startsWith('http') ? blog.imageUrl : `https://healpeer-backend.onrender.com${blog.imageUrl}`)
     : DEFAULT_IMAGE;
 
   const readTime = Math.ceil((blog.content?.length || 0) / 1000);
