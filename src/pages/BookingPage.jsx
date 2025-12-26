@@ -568,7 +568,7 @@ const InputGroup = ({ label, children, icon: Icon }) => (
 // --- IMAGE HELPERS ---
 const DEFAULT_AVATAR =
   "https://cdn-icons-png.flaticon.com/512/219/219969.png";
-const BACKEND_BASE_URL = "http://localhost:3000"; // adjust if different
+const BACKEND_BASE_URL = "https://healpeer-backend.onrender.com"; // adjust if different
 
 const getAvatarUrl = (counselor) => {
   const img = counselor?.profileImage;

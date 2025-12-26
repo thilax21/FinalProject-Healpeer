@@ -786,7 +786,7 @@ const Counselor = ({ user, counselors, setCounselors }) => {
   const getAvatarUrl = (c) => {
     if (!c.profileImage) return DEFAULT_AVATAR;
     if (c.profileImage.startsWith("http")) return c.profileImage;
-    return `http://localhost:3000${c.profileImage}`;
+    return `https://healpeer-backend.onrender.com${c.profileImage}`;
   };
 
   return (
