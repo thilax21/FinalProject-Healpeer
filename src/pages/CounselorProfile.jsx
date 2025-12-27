@@ -694,7 +694,7 @@ const CounselorProfile = ({ user }) => {
   const avatarUrl = counselor.profileImage
     ? counselor.profileImage.startsWith("http")
       ? counselor.profileImage
-      : `http://localhost:3000${counselor.profileImage}`
+      : `https://healpeer-backend.onrender.com${counselor.profileImage}`
     : "https://cdn-icons-png.flaticon.com/512/219/219969.png";
 
   const handleBookClick = () => {

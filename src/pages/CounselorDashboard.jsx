@@ -2044,7 +2044,7 @@ const CounselorDashboard = ({ user }) => {
         if (c.profileImage) {
           img = c.profileImage.startsWith("http")
             ? c.profileImage
-            : `http://localhost:3000${c.profileImage}`;
+            : `https://healpeer-backend.onrender.com${c.profileImage}`;
         }
         setPreviewImage(img || null);
       } catch (err) {
@@ -2141,7 +2141,7 @@ const CounselorDashboard = ({ user }) => {
       if (updated.profileImage) {
         img = updated.profileImage.startsWith("http")
           ? updated.profileImage
-          : `http://localhost:3000${updated.profileImage}`;
+          : `https://healpeer-backend.onrender.com${updated.profileImage}`;
       }
       setPreviewImage(img || null);
 

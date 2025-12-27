@@ -32,7 +32,7 @@ const BlogPopup = ({ user, existingBlog = null, onClose, onSaved }) => {
         content: existingBlog.content || "",
         image: null,
         preview: existingBlog.imageUrl 
-          ? (existingBlog.imageUrl.startsWith('http') ? existingBlog.imageUrl : `http://localhost:3000${existingBlog.imageUrl}`)
+          ? (existingBlog.imageUrl.startsWith('http') ? existingBlog.imageUrl : `https://healpeer-backend.onrender.com${existingBlog.imageUrl}`)
           : null,
       });
     }

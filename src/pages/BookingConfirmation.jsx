@@ -83,7 +83,7 @@ const BookingPage = ({ clientId }) => {
   // Fetch all counselors
   useEffect(() => {
     const fetchCounselors = async () => {
-      const { data } = await axios.get("http://localhost:3000/api/counselors");
+      const { data } = await axios.get("hhttps://healpeer-backend.onrender.com/api/counselors");
       setCounselors(data);
     };
     fetchCounselors();

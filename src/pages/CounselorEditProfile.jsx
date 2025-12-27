@@ -425,7 +425,7 @@ const CounselorEditProfile = () => {
           c.profileImage && c.profileImage.startsWith("http")
             ? c.profileImage
             : c.profileImage
-            ? `http://localhost:3000${c.profileImage}`
+            ? `https://healpeer-backend.onrender.com${c.profileImage}`
             : "";
         setPreviewImage(img);
 

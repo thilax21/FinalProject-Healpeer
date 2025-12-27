@@ -2684,7 +2684,7 @@ const ClientDashboard = ({ user }) => {
           data.data.profileImage
             ? data.data.profileImage.startsWith("http")
               ? data.data.profileImage
-              : `http://localhost:3000${data.data.profileImage}`
+              : `https://healpeer-backend.onrender.com${data.data.profileImage}`
             : null
         );
       } catch (err) {
@@ -2762,7 +2762,7 @@ const ClientDashboard = ({ user }) => {
         data.data.profileImage
           ? data.data.profileImage.startsWith("http")
             ? data.data.profileImage
-            : `http://localhost:3000${data.data.profileImage}`
+            : `https://healpeer-backend.onrender.com${data.data.profileImage}`
           : null
       );
       setEditingProfile(false);
