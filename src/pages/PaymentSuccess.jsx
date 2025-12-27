@@ -283,11 +283,8 @@ const PaymentSuccess = () => {
           "Error fetching payment details:",
           err.response?.data || err.message || err
         );
-        setError(
-          err.response?.data?.message ||
-            "Failed to load payment details"
-        );
-      } finally {
+        setError(err.response?.data?.message || "Failed to load payment details");
+      }finally {
         setLoading(false);
       }
     };
