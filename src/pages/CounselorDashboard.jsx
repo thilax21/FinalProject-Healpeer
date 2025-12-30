@@ -1,828 +1,5 @@
 
 
-// // // src/pages/CounselorDashboard.jsx
-// // import React, { useEffect, useState } from "react";
-// // import API from "../api/api";
-// // import { useNavigate } from "react-router-dom";
-// // import { motion, AnimatePresence } from "framer-motion";
-// // import { toast } from "react-hot-toast";
-// // import {
-// //   Edit2,
-// //   User,
-// //   Calendar,
-// //   Phone,
-// //   Mail,
-// //   Camera,
-// //   Video,
-// //   MessageSquare,
-// //   Clock,
-// //   Sparkles,
-// //   Wallet,
-// //   FileText,
-// //   Trash2,
-// //   Edit,
-// // } from "lucide-react";
-
-// // // --- Visual Components (same style as ClientDashboard) ---
-// // const GrainTexture = () => (
-// //   <div
-// //     className="fixed inset-0 pointer-events-none z-0 opacity-[0.03] mix-blend-overlay"
-// //     style={{
-// //       backgroundImage: `url("https://grainy-gradients.vercel.app/noise.svg")`,
-// //       filter: "contrast(170%) brightness(100%)",
-// //     }}
-// //   />
-// // );
-
-// // const Card = ({ children, className = "", onClick }) => (
-// //   <motion.div
-// //     onClick={onClick}
-// //     layout
-// //     initial={{ opacity: 0, y: 20 }}
-// //     animate={{ opacity: 1, y: 0 }}
-// //     transition={{ duration: 0.35 }}
-// //     className={`bg-white rounded-[1.25rem] border-stone-100 shadow-[0_8px_30px_rgba(0,0,0,0.04)] overflow-hidden ${className}`}
-// //   >
-// //     {children}
-// //   </motion.div>
-// // );
-
-// // const Badge = ({ children, color = "stone" }) => {
-// //   const colors = {
-// //     stone: "bg-stone-100 text-stone-600",
-// //     green: "bg-[#ECF6E1] text-[#3f6212]",
-// //     red: "bg-red-50 text-red-500",
-// //     yellow: "bg-yellow-50 text-yellow-600",
-// //   };
-// //   return (
-// //     <span
-// //       className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest ${colors[color]}`}
-// //     >
-// //       {children}
-// //     </span>
-// //   );
-// // };
-
-// // const CounselorDashboard = ({ user }) => {
-// //   const navigate = useNavigate();
-// //   const [profile, setProfile] = useState(null);
-// //   const [bookings, setBookings] = useState([]);
-// //   const [payoutSummary, setPayoutSummary] = useState(null);
-// //   const [blogs, setBlogs] = useState([]);
-// //   const [editingProfile, setEditingProfile] = useState(false);
-// //   const [profileData, setProfileData] = useState({});
-// //   const [selectedFile, setSelectedFile] = useState(null);
-// //   const [previewImage, setPreviewImage] = useState(null);
-// //   const [activeTab, setActiveTab] = useState("sessions"); // "sessions" | "earnings" | "blogs"
-
-// //   const token = localStorage.getItem("token");
-// //   const authHeaders = token ? { Authorization: `Bearer ${token}` } : {};
-// //   const counselorId = user?.id || user?._id || localStorage.getItem("userId");
-
-// //   // --- Fetch profile ---
-// //   useEffect(() => {
-// //     if (!counselorId) return;
-// //     const fetchProfile = async () => {
-// //       try {
-// //         const { data } = await API.get(`/users/${counselorId}`, {
-// //           headers: authHeaders,
-// //         });
-// //         setProfile(data.data);
-// //         setProfileData({
-// //           name: data.data.name || "",
-// //           bio: data.data.bio || "",
-// //           contactNumber: data.data.contactNumber || "",
-// //         });
-// //         setPreviewImage(
-// //           data.data.profileImage
-// //             ? `http://localhost:3000${data.data.profileImage}`
-// //             : null
-// //         );
-// //       } catch (err) {
-// //         console.error("Failed to fetch profile:", err);
-// //       }
-// //     };
-// //     fetchProfile();
-// //   }, [counselorId, token]);
-
-// //   // --- Fetch bookings + payout summary + own blogs ---
-// //   useEffect(() => {
-// //     if (!counselorId || !token) return;
-
-// //     const fetchData = async () => {
-// //       try {
-// //         const [bookingsRes, payoutRes, blogsRes] = await Promise.all([
-// //           API.get(`/booking/counselor/${counselorId}`, { headers: authHeaders }),
-// //           API.get(`/payout/summary/${counselorId}`, { headers: authHeaders }),
-// //           API.get("/blogs/my-blogs", { headers: authHeaders }),
-// //         ]);
-
-// //         setBookings(bookingsRes.data.bookings || bookingsRes.data.data || []);
-// //         setPayoutSummary(payoutRes.data.summary || null);
-// //         setBlogs(blogsRes.data.data || []);
-// //       } catch (err) {
-// //         console.error("Fetch error:", err);
-// //       }
-// //     };
-// //     fetchData();
-// //   }, [counselorId, token]);
-
-// //   // --- Profile form handlers ---
-// //   const handleProfileChange = (e) =>
-// //     setProfileData({ ...profileData, [e.target.name]: e.target.value });
-
-// //   const handleFileChange = (e) => {
-// //     const file = e.target.files?.[0];
-// //     setSelectedFile(file);
-// //     if (file) setPreviewImage(URL.createObjectURL(file));
-// //   };
-
-// //   const submitProfileUpdate = async (e) => {
-// //     e.preventDefault();
-// //     if (!token) return toast.error("You are not authenticated");
-
-// //     try {
-// //       const formData = new FormData();
-// //       formData.append("name", profileData.name);
-// //       formData.append("bio", profileData.bio);
-// //       formData.append("contactNumber", profileData.contactNumber);
-// //       if (selectedFile) formData.append("profileImage", selectedFile);
-
-// //       const { data } = await API.put(`/profile/update`, formData, {
-// //         headers: { ...authHeaders, "Content-Type": "multipart/form-data" },
-// //       });
-
-// //       setProfile(data.data);
-// //       setProfileData({
-// //         name: data.data.name,
-// //         bio: data.data.bio,
-// //         contactNumber: data.data.contactNumber,
-// //       });
-// //       setPreviewImage(
-// //         data.data.profileImage
-// //           ? `http://localhost:3000${data.data.profileImage}`
-// //           : null
-// //       );
-// //       setEditingProfile(false);
-// //       toast.success("Profile updated successfully!");
-// //     } catch (err) {
-// //       console.error("Update failed:", err);
-// //       toast.error("Update failed.");
-// //     }
-// //   };
-
-// //   // --- Sessions ---
-// //   const handleStartSession = (booking) => {
-// //     if (
-// //       booking.sessionType &&
-// //       booking.sessionType.toLowerCase() === "chat" &&
-// //       booking.chatRoom
-// //     ) {
-// //       navigate(`/chat/${booking.chatRoom}`);
-// //       return;
-// //     }
-
-// //     const callId = booking._id || booking.id;
-// //     if (!callId) {
-// //       toast.error("Missing booking ID for video call.");
-// //       return;
-// //     }
-
-// //     navigate(`/video/${callId}`);
-// //   };
-
-// //   const otherName = (b) => b?.clientId?.name;
-
-// //   // --- Blogs handlers ---
-// //   const handleDeleteBlog = async (id) => {
-// //     if (!window.confirm("Delete this blog?")) return;
-// //     try {
-// //       await API.delete(`/blogs/${id}`, { headers: authHeaders });
-// //       setBlogs((prev) => prev.filter((b) => b._id !== id));
-// //       toast.success("Blog deleted");
-// //     } catch (err) {
-// //       console.error("Blog delete failed:", err);
-// //       toast.error("Deletion failed.");
-// //     }
-// //   };
-
-// //   const handleEditBlog = (id) => {
-// //     navigate(`/update-blog/${id}`);
-// //   };
-
-// //   if (!profile) {
-// //     return (
-// //       <div className="min-h-screen bg-[#f4f2ed] flex items-center justify-center">
-// //         <div className="animate-pulse">Loading your dashboard...</div>
-// //       </div>
-// //     );
-// //   }
-
-// //   // --- Split bookings into upcoming & completed (by time / status) ---
-// //   const splitBookingsByTime = (items) => {
-// //     const now = new Date();
-// //     const upcoming = [];
-// //     const completed = [];
-
-// //     items.forEach((b) => {
-// //       let start = b.startDateTime ? new Date(b.startDateTime) : null;
-// //       let end = b.endDateTime ? new Date(b.endDateTime) : null;
-
-// //       if (!start && b.date && b.time) {
-// //         const [year, month, day] = b.date.split("-");
-// //         const [hour, minute] = b.time.split(":");
-// //         start = new Date(year, month - 1, day, hour, minute);
-// //       }
-// //       if (!end && start) {
-// //         const duration = b.durationMin || 60;
-// //         end = new Date(start.getTime() + duration * 60 * 1000);
-// //       }
-
-// //       if (!start || !end) {
-// //         upcoming.push(b);
-// //         return;
-// //       }
-
-// //       const isCompletedByStatus =
-// //         b.status === "completed" || b.status === "cancelled";
-// //       const isCompletedByTime = now > end;
-
-// //       if (isCompletedByStatus || isCompletedByTime) {
-// //         completed.push(b);
-// //       } else {
-// //         upcoming.push(b);
-// //       }
-// //     });
-
-// //     return { upcoming, completed };
-// //   };
-
-// //   const { upcoming: upcomingSessions, completed: completedSessions } =
-// //     splitBookingsByTime(bookings);
-
-// //   return (
-// //     <div className="min-h-screen bg-[#f4f2ed] text-[#1c1977] font-sans relative selection:bg-[#3f6212] selection:text-white">
-// //       <GrainTexture />
-
-// //       <main className="max-w-7xl mx-auto px-6 py-20 lg:py-28 relative z-10">
-// //         <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-// //           {/* LEFT: Profile */}
-// //           <aside className="lg:col-span-4 lg:sticky lg:top-10 space-y-6">
-// //             <Card className="p-8 text-center relative">
-// //               <button
-// //                 onClick={() => setEditingProfile((s) => !s)}
-// //                 className="absolute top-6 right-6 p-2 rounded-full hover:bg-stone-100 text-stone-400 hover:text-[#1c1977] transition-colors"
-// //               >
-// //                 <Edit2 size={16} />
-// //               </button>
-
-// //               {/* Avatar */}
-// //               <div className="relative w-32 h-32 mx-auto mb-6 group">
-// //                 <div className="absolute inset-0 rounded-full bg-[#3f6212] opacity-0 group-hover:opacity-10 blur-xl transition-opacity duration-500"></div>
-// //                 <img
-// //                   src={
-// //                     previewImage ||
-// //                     "https://cdn-icons-png.flaticon.com/512/149/149071.png"
-// //                   }
-// //                   alt="Profile"
-// //                   className="w-full h-full rounded-full object-cover border-4 border-white shadow-lg"
-// //                 />
-// //                 {editingProfile && (
-// //                   <label className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full cursor-pointer opacity-0 hover:opacity-100 transition-opacity">
-// //                     <Camera className="text-white" size={20} />
-// //                     <input
-// //                       type="file"
-// //                       accept="image/*"
-// //                       onChange={handleFileChange}
-// //                       className="hidden"
-// //                     />
-// //                   </label>
-// //                 )}
-// //               </div>
-
-// //               <AnimatePresence mode="wait">
-// //                 {editingProfile ? (
-// //                   <motion.form
-// //                     initial={{ opacity: 0 }}
-// //                     animate={{ opacity: 1 }}
-// //                     exit={{ opacity: 0 }}
-// //                     onSubmit={submitProfileUpdate}
-// //                     className="space-y-4"
-// //                   >
-// //                     <input
-// //                       name="name"
-// //                       value={profileData.name}
-// //                       onChange={handleProfileChange}
-// //                       className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3f6212]"
-// //                       placeholder="Name"
-// //                     />
-// //                     <textarea
-// //                       name="bio"
-// //                       value={profileData.bio}
-// //                       onChange={handleProfileChange}
-// //                       className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3f6212] resize-none"
-// //                       rows={3}
-// //                       placeholder="Bio"
-// //                     />
-// //                     <input
-// //                       name="contactNumber"
-// //                       value={profileData.contactNumber}
-// //                       onChange={handleProfileChange}
-// //                       className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3f6212]"
-// //                       placeholder="Contact Number"
-// //                     />
-// //                     <div className="flex gap-2">
-// //                       <button
-// //                         type="submit"
-// //                         className="flex-1 bg-[#3f6212] text-white py-2 rounded-lg hover:bg-[#2f4a0e]"
-// //                       >
-// //                         Save
-// //                       </button>
-// //                       <button
-// //                         type="button"
-// //                         onClick={() => setEditingProfile(false)}
-// //                         className="flex-1 bg-stone-200 text-stone-700 py-2 rounded-lg hover:bg-stone-300"
-// //                       >
-// //                         Cancel
-// //                       </button>
-// //                     </div>
-// //                   </motion.form>
-// //                 ) : (
-// //                   <motion.div
-// //                     initial={{ opacity: 0 }}
-// //                     animate={{ opacity: 1 }}
-// //                     exit={{ opacity: 0 }}
-// //                     className="space-y-4"
-// //                   >
-// //                     <h2 className="text-2xl font-bold text-[#1c1977]">
-// //                       {profile.name}
-// //                     </h2>
-// //                     {profile.bio && (
-// //                       <p className="text-stone-600 text-sm leading-relaxed">
-// //                         {profile.bio}
-// //                       </p>
-// //                     )}
-// //                     <div className="flex flex-col gap-2 text-sm text-stone-500">
-// //                       {profile.email && (
-// //                         <div className="flex items-center justify-center gap-2">
-// //                           <Mail size={14} />
-// //                           <span>{profile.email}</span>
-// //                         </div>
-// //                       )}
-// //                       {profile.contactNumber && (
-// //                         <div className="flex items-center justify-center gap-2">
-// //                           <Phone size={14} />
-// //                           <span>{profile.contactNumber}</span>
-// //                         </div>
-// //                       )}
-// //                       <div className="text-xs text-stone-400 mt-2">
-// //                         Role: <span className="font-semibold">counselor</span>
-// //                       </div>
-// //                     </div>
-// //                   </motion.div>
-// //                 )}
-// //               </AnimatePresence>
-// //             </Card>
-
-// //             {/* Quick Stats */}
-// //             <Card className="p-6">
-// //               <h3 className="font-semibold text-[#1c1977] mb-4">
-// //                 Your Practice
-// //               </h3>
-// //               <div className="grid grid-cols-2 gap-4">
-// //                 <div className="text-center p-3 bg-stone-50 rounded-lg">
-// //                   <div className="text-2xl font-bold text-[#3f6212]">
-// //                     {bookings.length}
-// //                   </div>
-// //                   <div className="text-xs text-stone-500">
-// //                     Total Sessions
-// //                   </div>
-// //                 </div>
-// //                 <div className="text-center p-3 bg-stone-50 rounded-lg">
-// //                   <div className="text-2xl font-bold text-[#3f6212]">
-// //                     {blogs.length}
-// //                   </div>
-// //                   <div className="text-xs text-stone-500">
-// //                     Blog Articles
-// //                   </div>
-// //                 </div>
-// //               </div>
-// //             </Card>
-// //           </aside>
-
-// //           {/* RIGHT: Tabs & Content */}
-// //           <div className="lg:col-span-8 space-y-6">
-// //             {/* Tabs */}
-// //             <div className="flex gap-2 border-b border-stone-200">
-// //               {["sessions", "earnings", "blogs"].map((tab) => (
-// //                 <button
-// //                   key={tab}
-// //                   onClick={() => setActiveTab(tab)}
-// //                   className={`px-4 py-2 font-medium transition-colors ${
-// //                     activeTab === tab
-// //                       ? "text-[#3f6212] border-b-2 border-[#3f6212]"
-// //                       : "text-stone-500 hover:text-stone-700"
-// //                   }`}
-// //                 >
-// //                   {tab === "sessions"
-// //                     ? "Sessions"
-// //                     : tab === "earnings"
-// //                     ? "Earnings"
-// //                     : "Blogs"}
-// //                 </button>
-// //               ))}
-// //             </div>
-
-// //             <AnimatePresence mode="wait">
-// //               {/* SESSIONS TAB */}
-// //               {activeTab === "sessions" && (
-// //                 <motion.div
-// //                   key="sessions"
-// //                   initial={{ opacity: 0, y: 10 }}
-// //                   animate={{ opacity: 1, y: 0 }}
-// //                   exit={{ opacity: 0, y: -10 }}
-// //                   className="space-y-4"
-// //                 >
-// //                   {bookings.length === 0 ? (
-// //                     <Card className="p-8 text-center">
-// //                       <Calendar
-// //                         className="mx-auto text-stone-300 mb-4"
-// //                         size={48}
-// //                       />
-// //                       <p className="text-stone-500">
-// //                         No sessions scheduled yet
-// //                       </p>
-// //                     </Card>
-// //                   ) : (
-// //                     <>
-// //                       {/* Upcoming Sessions */}
-// //                       <h3 className="font-semibold text-[#1c1977] mb-2">
-// //                         Upcoming Sessions
-// //                       </h3>
-// //                       {upcomingSessions.length === 0 ? (
-// //                         <Card className="p-6 text-center mb-4">
-// //                           <p className="text-sm text-stone-500">
-// //                             No upcoming sessions
-// //                           </p>
-// //                         </Card>
-// //                       ) : (
-// //                         upcomingSessions.map((b) => {
-// //                           const PRE_JOIN_MINUTES = 10;
-// //                           let start = b.startDateTime
-// //                             ? new Date(b.startDateTime)
-// //                             : null;
-// //                           let end = b.endDateTime
-// //                             ? new Date(b.endDateTime)
-// //                             : null;
-
-// //                           if (!start && b.date && b.time) {
-// //                             const [year, month, day] = b.date.split("-");
-// //                             const [hour, minute] = b.time.split(":");
-// //                             start = new Date(
-// //                               year,
-// //                               month - 1,
-// //                               day,
-// //                               hour,
-// //                               minute
-// //                             );
-// //                           }
-// //                           if (!end && start) {
-// //                             const duration = b.durationMin || 60;
-// //                             end = new Date(
-// //                               start.getTime() + duration * 60 * 1000
-// //                             );
-// //                           }
-
-// //                           const now = new Date();
-// //                           const joinOpensAt =
-// //                             start &&
-// //                             new Date(
-// //                               start.getTime() - PRE_JOIN_MINUTES * 60 * 1000
-// //                             );
-// //                           const canJoinNow =
-// //                             start &&
-// //                             end &&
-// //                             now >= joinOpensAt &&
-// //                             now <= end;
-
-// //                           return (
-// //                             <Card key={b._id} className="p-6 mb-4">
-// //                               <div className="flex items-start justify-between">
-// //                                 <div className="flex-1">
-// //                                   <div className="flex items-center gap-3 mb-2">
-// //                                     <div className="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center">
-// //                                       <User
-// //                                         className="text-stone-600"
-// //                                         size={20}
-// //                                       />
-// //                                     </div>
-// //                                     <div>
-// //                                       <h4 className="font-semibold text-[#1c1977]">
-// //                                         {otherName(b) || "Client"}
-// //                                       </h4>
-// //                                       <div className="flex items-center gap-2 text-sm text-stone-500">
-// //                                         <Calendar size={14} />
-// //                                         <span>
-// //                                           {new Date(
-// //                                             b.date
-// //                                           ).toLocaleDateString()}
-// //                                         </span>
-// //                                         <Clock size={14} />
-// //                                         <span>{b.time}</span>
-// //                                       </div>
-// //                                     </div>
-// //                                   </div>
-
-// //                                   <div className="flex gap-2 mt-3">
-// //                                     <Badge
-// //                                       color={
-// //                                         b.status === "paid" ||
-// //                                         b.status === "completed"
-// //                                           ? "green"
-// //                                           : "yellow"
-// //                                       }
-// //                                     >
-// //                                       {b.status}
-// //                                     </Badge>
-// //                                     <Badge color="stone">
-// //                                       {b.sessionType}
-// //                                     </Badge>
-// //                                   </div>
-// //                                 </div>
-
-// //                                 {(b.status === "paid" ||
-// //                                   b.status === "confirmed") && (
-// //                                   <button
-// //                                     onClick={() =>
-// //                                       canJoinNow && handleStartSession(b)
-// //                                     }
-// //                                     disabled={!canJoinNow}
-// //                                     className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium
-// //                                       ${
-// //                                         canJoinNow
-// //                                           ? "bg-[#3f6212] text-white hover:bg-[#2f4a0e]"
-// //                                           : "bg-stone-200 text-stone-500 cursor-not-allowed"
-// //                                       }`}
-// //                                   >
-// //                                     {b.sessionType === "chat" ? (
-// //                                       <MessageSquare size={16} />
-// //                                     ) : (
-// //                                       <Video size={16} />
-// //                                     )}
-// //                                     {canJoinNow ? "Join" : "Not available"}
-// //                                   </button>
-// //                                 )}
-// //                               </div>
-// //                             </Card>
-// //                           );
-// //                         })
-// //                       )}
-
-// //                       {/* Completed Sessions */}
-// //                       <h3 className="font-semibold text-[#1c1977] mt-4 mb-2">
-// //                         Completed Sessions
-// //                       </h3>
-// //                       {completedSessions.length === 0 ? (
-// //                         <Card className="p-6 text-center">
-// //                           <p className="text-sm text-stone-500">
-// //                             No completed sessions
-// //                           </p>
-// //                         </Card>
-// //                       ) : (
-// //                         completedSessions.map((b) => (
-// //                           <Card key={b._id} className="p-6 mb-4">
-// //                             <div className="flex items-start justify-between">
-// //                               <div className="flex-1">
-// //                                 <div className="flex items-center gap-3 mb-2">
-// //                                   <div className="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center">
-// //                                     <User
-// //                                       className="text-stone-600"
-// //                                       size={20}
-// //                                     />
-// //                                   </div>
-// //                                   <div>
-// //                                     <h4 className="font-semibold text-[#1c1977]">
-// //                                       {otherName(b) || "Client"}
-// //                                     </h4>
-// //                                     <div className="flex items-center gap-2 text-sm text-stone-500">
-// //                                       <Calendar size={14} />
-// //                                       <span>
-// //                                         {new Date(
-// //                                           b.date
-// //                                         ).toLocaleDateString()}
-// //                                       </span>
-// //                                       <Clock size={14} />
-// //                                       <span>{b.time}</span>
-// //                                     </div>
-// //                                   </div>
-// //                                 </div>
-
-// //                                 <div className="flex gap-2 mt-3">
-// //                                   <Badge color="green">
-// //                                     {b.status === "completed"
-// //                                       ? "completed"
-// //                                       : b.status}
-// //                                   </Badge>
-// //                                   <Badge color="stone">
-// //                                     {b.sessionType}
-// //                                   </Badge>
-// //                                 </div>
-// //                               </div>
-// //                               {/* No Join button for completed */}
-// //                             </div>
-// //                           </Card>
-// //                         ))
-// //                       )}
-// //                     </>
-// //                   )}
-// //                 </motion.div>
-// //               )}
-
-// //               {/* EARNINGS TAB */}
-// //               {activeTab === "earnings" && (
-// //                 <motion.div
-// //                   key="earnings"
-// //                   initial={{ opacity: 0, y: 10 }}
-// //                   animate={{ opacity: 1, y: 0 }}
-// //                   exit={{ opacity: 0, y: -10 }}
-// //                   className="space-y-6"
-// //                 >
-// //                   {!payoutSummary ? (
-// //                     <Card className="p-8 text-center">
-// //                       <Wallet
-// //                         className="mx-auto text-stone-300 mb-4"
-// //                         size={48}
-// //                       />
-// //                       <p className="text-stone-500">
-// //                         No earnings data available yet.
-// //                       </p>
-// //                     </Card>
-// //                   ) : (
-// //                     <>
-// //                       {/* Top summary cards */}
-// //                       <div className="grid md:grid-cols-3 gap-4">
-// //                         <Card className="p-4">
-// //                           <div className="text-xs text-stone-500 uppercase font-bold tracking-widest mb-1">
-// //                             Total Earnings
-// //                           </div>
-// //                           <div className="text-2xl font-bold text-[#1c1977] flex items-center gap-2">
-// //                             <Wallet size={18} className="text-[#3f6212]" />
-// //                             {payoutSummary.totalEarnings.toFixed(2)}{" "}
-// //                             {payoutSummary.currency || "LKR"}
-// //                           </div>
-// //                         </Card>
-// //                         <Card className="p-4">
-// //                           <div className="text-xs text-stone-500 uppercase font-bold tracking-widest mb-1">
-// //                             Paid Out
-// //                           </div>
-// //                           <div className="text-2xl font-bold text-[#1c1977]">
-// //                             {payoutSummary.totalPaidOut.toFixed(2)}{" "}
-// //                             {payoutSummary.currency || "LKR"}
-// //                           </div>
-// //                         </Card>
-// //                         <Card className="p-4">
-// //                           <div className="text-xs text-stone-500 uppercase font-bold tracking-widest mb-1">
-// //                             Pending Balance
-// //                           </div>
-// //                           <div className="text-2xl font-bold text-[#3f6212]">
-// //                             {payoutSummary.pendingBalance.toFixed(2)}{" "}
-// //                             {payoutSummary.currency || "LKR"}
-// //                           </div>
-// //                         </Card>
-// //                       </div>
-
-// //                       {/* Recent sessions */}
-// //                       <Card className="p-6">
-// //                         <h3 className="font-semibold text-[#1c1977] mb-4">
-// //                           Recent Paid Sessions
-// //                         </h3>
-// //                         {payoutSummary.recentBookings?.length === 0 ? (
-// //                           <p className="text-sm text-stone-500">
-// //                             No paid sessions yet.
-// //                           </p>
-// //                         ) : (
-// //                           <div className="space-y-3">
-// //                             {payoutSummary.recentBookings.map((b) => (
-// //                               <div
-// //                                 key={b._id}
-// //                                 className="flex items-center justify-between p-3 bg-stone-50 rounded-lg"
-// //                               >
-// //                                 <div>
-// //                                   <div className="font-medium text-[#1c1977]">
-// //                                     {b.clientId?.name || "Client"}
-// //                                   </div>
-// //                                   <div className="text-xs text-stone-500 flex items-center gap-2">
-// //                                     <Calendar size={12} />
-// //                                     <span>
-// //                                       {new Date(
-// //                                         b.date
-// //                                       ).toLocaleDateString()}
-// //                                     </span>
-// //                                     <Clock size={12} />
-// //                                     <span>{b.time}</span>
-// //                                   </div>
-// //                                 </div>
-// //                                 <div className="text-sm font-semibold text-[#3f6212]">
-// //                                   {b.paidAmount || b.amount}{" "}
-// //                                   {payoutSummary.currency || "LKR"}
-// //                                 </div>
-// //                               </div>
-// //                             ))}
-// //                           </div>
-// //                         )}
-// //                       </Card>
-// //                     </>
-// //                   )}
-// //                 </motion.div>
-// //               )}
-
-// //               {/* BLOGS TAB */}
-// //               {activeTab === "blogs" && (
-// //                 <motion.div
-// //                   key="blogs"
-// //                   initial={{ opacity: 0, y: 10 }}
-// //                   animate={{ opacity: 1, y: 0 }}
-// //                   exit={{ opacity: 0, y: -10 }}
-// //                   className="space-y-4"
-// //                 >
-// //                   <div className="flex justify-between items-center">
-// //                     <h3 className="font-semibold text-[#1c1977]">
-// //                       Your Articles
-// //                     </h3>
-// //                     <button
-// //                       onClick={() => navigate("/blogs/write")}
-// //                       className="px-4 py-2 bg-[#3f6212] text-white rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-[#2f4a0e]"
-// //                     >
-// //                       Write New Blog
-// //                     </button>
-// //                   </div>
-
-// //                   {blogs.length === 0 ? (
-// //                     <Card className="p-8 text-center">
-// //                       <FileText
-// //                         className="mx-auto text-stone-300 mb-4"
-// //                         size={48}
-// //                       />
-// //                       <p className="text-stone-500">
-// //                         You haven&apos;t written any blogs yet.
-// //                       </p>
-// //                     </Card>
-// //                   ) : (
-// //                     blogs.map((blog) => (
-// //                       <Card
-// //                         key={blog._id}
-// //                         className="p-6 cursor-pointer"
-// //                         onClick={() => navigate(`/blogs/${blog._id}`)}
-// //                       >
-// //                         <div className="flex items-start justify-between gap-4">
-// //                           <div className="flex-1">
-// //                             <h4 className="font-semibold text-[#1c1977] mb-2">
-// //                               {blog.title}
-// //                             </h4>
-// //                             <p className="text-stone-600 text-sm mb-3 line-clamp-3">
-// //                               {blog.content}
-// //                             </p>
-// //                             <div className="text-xs text-stone-400">
-// //                               {new Date(blog.createdAt).toLocaleDateString()}
-// //                             </div>
-// //                           </div>
-// //                           <div className="flex gap-2">
-// //                             <button
-// //                               onClick={(e) => {
-// //                                 e.stopPropagation();
-// //                                 handleEditBlog(blog._id);
-// //                               }}
-// //                               className="p-2 bg-stone-100 rounded text-stone-600 hover:bg-[#3f6212] hover:text-white transition-colors"
-// //                             >
-// //                               <Edit size={14} />
-// //                             </button>
-// //                             <button
-// //                               onClick={(e) => {
-// //                                 e.stopPropagation();
-// //                                 handleDeleteBlog(blog._id);
-// //                               }}
-// //                               className="p-2 bg-stone-100 rounded text-stone-600 hover:bg-red-600 hover:text-white transition-colors"
-// //                             >
-// //                               <Trash2 size={14} />
-// //                             </button>
-// //                           </div>
-// //                         </div>
-// //                       </Card>
-// //                     ))
-// //                   )}
-// //                 </motion.div>
-// //               )}
-// //             </AnimatePresence>
-// //           </div>
-// //         </div>
-// //       </main>
-// //     </div>
-// //   );
-// // };
-
-// // export default CounselorDashboard;
-
-
 // // src/pages/CounselorDashboard.jsx
 // import React, { useEffect, useState } from "react";
 // import API from "../api/api";
@@ -845,7 +22,6 @@
 //   Edit,
 // } from "lucide-react";
 
-// // --- Visual components (same family as ClientDashboard) ---
 // const GrainTexture = () => (
 //   <div
 //     className="fixed inset-0 pointer-events-none z-0 opacity-[0.04] mix-blend-overlay"
@@ -904,7 +80,6 @@
 //     name: "",
 //     bio: "",
 //     contactNumber: "",
-//     profileImageUrl: "",
 //   });
 //   const [selectedFile, setSelectedFile] = useState(null);
 //   const [previewImage, setPreviewImage] = useState(null);
@@ -921,32 +96,38 @@
 
 //   const token = localStorage.getItem("token");
 //   const authHeaders = token ? { Authorization: `Bearer ${token}` } : {};
-//   const counselorId =
-//     user?.id || user?._id || localStorage.getItem("userId");
+//   const counselorId = user?.id || user?._id || localStorage.getItem("userId");
 
-//   // --- Fetch profile ---
+//   // --- Fetch profile (from /counselors/:id) ---
 //   useEffect(() => {
-//     if (!counselorId) return;
+//     if (!counselorId || !token) return;
+
 //     const fetchProfile = async () => {
 //       try {
-//         const { data } = await API.get(`/users/${counselorId}`, {
+//         const { data } = await API.get(`/counselors/${counselorId}`, {
 //           headers: authHeaders,
 //         });
-//         setProfile(data.data);
+
+//         const c = data.data;
+//         setProfile(c);
 //         setProfileData({
-//           name: data.data.name || "",
-//           bio: data.data.bio || "",
-//           contactNumber: data.data.contactNumber || "",
+//           name: c.name || "",
+//           bio: c.bio || "",
+//           contactNumber: c.contactNumber || "",
 //         });
-//         setPreviewImage(
-//           data.data.profileImage
-//             ? `http://localhost:3000${data.data.profileImage}`
-//             : null
-//         );
+
+//         let img = "";
+//         if (c.profileImage) {
+//           img = c.profileImage.startsWith("http")
+//             ? c.profileImage
+//             : `https://healpeer-backend.onrender.com${c.profileImage}`;
+//         }
+//         setPreviewImage(img || null);
 //       } catch (err) {
 //         console.error("Failed to fetch profile:", err);
 //       }
 //     };
+
 //     fetchProfile();
 //   }, [counselorId, token]);
 
@@ -964,7 +145,9 @@
 //           API.get("/blogs/my-blogs", { headers: authHeaders }),
 //         ]);
 
-//         setBookings(bookingsRes.data.bookings || bookingsRes.data.data || []);
+//         setBookings(
+//           bookingsRes.data.bookings || bookingsRes.data.data || []
+//         );
 //         setPayoutSummary(payoutRes.data.summary || null);
 //         setBlogs(blogsRes.data.data || []);
 //       } catch (err) {
@@ -999,7 +182,10 @@
 
 //   const submitProfileUpdate = async (e) => {
 //     e.preventDefault();
-//     if (!token) return toast.error("You are not authenticated");
+//     if (!token || !counselorId) {
+//       toast.error("You are not authenticated");
+//       return;
+//     }
 
 //     try {
 //       const formData = new FormData();
@@ -1008,26 +194,33 @@
 //       formData.append("contactNumber", profileData.contactNumber);
 //       if (selectedFile) formData.append("profileImage", selectedFile);
 
-//       const { data } = await API.put(`/profile/update`, formData, {
-//         headers: { ...authHeaders, "Content-Type": "multipart/form-data" },
+//       const { data } = await API.put(
+//         `/counselors/update/${counselorId}`,
+//         formData,
+//         {
+//           headers: {
+//             ...authHeaders,
+//             "Content-Type": "multipart/form-data",
+//           },
+//         }
+//       );
+
+//       const updated = data.data;
+//       setProfile(updated);
+//       setProfileData({
+//         name: updated.name || "",
+//         bio: updated.bio || "",
+//         contactNumber: updated.contactNumber || "",
 //       });
 
-//       setProfile(data.data);
-//       setProfileData({
-//         name: data.data.name || "",
-//         bio: data.data.bio || "",
-//         contactNumber: data.data.contactNumber || "",
-//         // if backend already stores URL in profileImage and it's an http URL, reuse it:
-//         profileImageUrl:
-//           data.data.profileImage && data.data.profileImage.startsWith("http")
-//             ? data.data.profileImage
-//             : "",
-//       });
-//       setPreviewImage(
-//         data.data.profileImage
-//           ? `http://localhost:3000${data.data.profileImage}`
-//           : null
-//       );
+//       let img = "";
+//       if (updated.profileImage) {
+//         img = updated.profileImage.startsWith("http")
+//           ? updated.profileImage
+//           : `https://healpeer-backend.onrender.com${updated.profileImage}`;
+//       }
+//       setPreviewImage(img || null);
+
 //       setEditingProfile(false);
 //       toast.success("Profile updated successfully!");
 //     } catch (err) {
@@ -1189,7 +382,7 @@
 //   );
 
 //   return (
-//     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 text-slate-900 relative">
+//     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 text-slate-900 relative top-20">
 //       <GrainTexture />
 
 //       <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-10 lg:py-14 relative z-10">
@@ -1277,6 +470,7 @@
 //               <AnimatePresence mode="wait">
 //                 {editingProfile ? (
 //                   <motion.form
+//                     key="edit-form"
 //                     initial={{ opacity: 0, y: 6 }}
 //                     animate={{ opacity: 1, y: 0 }}
 //                     exit={{ opacity: 0, y: 6 }}
@@ -1323,6 +517,7 @@
 //                   </motion.form>
 //                 ) : (
 //                   <motion.div
+//                     key="view-profile"
 //                     initial={{ opacity: 0, y: 6 }}
 //                     animate={{ opacity: 1, y: 0 }}
 //                     exit={{ opacity: 0, y: 6 }}
@@ -1361,7 +556,7 @@
 //               </AnimatePresence>
 
 //               {/* Quick Stats */}
-//               <div className="mt-6 grid grid-cols-2 gap-3">
+//               {/* <div className="mt-6 grid grid-cols-2 gap-3">
 //                 <div className="text-center p-3 bg-slate-50 rounded-lg">
 //                   <div className="text-2xl font-bold text-emerald-600">
 //                     {bookings.length}
@@ -1378,7 +573,7 @@
 //                     Blogs
 //                   </div>
 //                 </div>
-//               </div>
+//               </div> */}
 //             </Card>
 //           </aside>
 
@@ -1400,13 +595,17 @@
 //                         <span className="font-semibold">
 //                           {clientName(nextSession)}
 //                         </span>
-//                         <span className="text-slate-400">•</span>
-//                         <span>
-//                           {new Date(
-//                             nextSession.date
-//                           ).toLocaleDateString()}{" "}
-//                           at {nextSession.time}
-//                         </span>
+//                         {nextSession.date && (
+//                           <>
+//                             <span className="text-slate-400">•</span>
+//                             <span>
+//                               {new Date(
+//                                 nextSession.date
+//                               ).toLocaleDateString()}{" "}
+//                               at {nextSession.time}
+//                             </span>
+//                           </>
+//                         )}
 //                       </div>
 //                     </div>
 //                   </div>
@@ -1512,16 +711,20 @@
 //                                   {clientName(b)}
 //                                 </h4>
 //                                 <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 mt-1">
-//                                   <span className="inline-flex items-center gap-1">
-//                                     <Calendar size={12} />
-//                                     {new Date(
-//                                       b.date
-//                                     ).toLocaleDateString()}
-//                                   </span>
-//                                   <span className="inline-flex items-center gap-1">
-//                                     <Clock size={12} />
-//                                     {b.time}
-//                                   </span>
+//                                   {b.date && (
+//                                     <span className="inline-flex items-center gap-1">
+//                                       <Calendar size={12} />
+//                                       {new Date(
+//                                         b.date
+//                                       ).toLocaleDateString()}
+//                                     </span>
+//                                   )}
+//                                   {b.time && (
+//                                     <span className="inline-flex items-center gap-1">
+//                                       <Clock size={12} />
+//                                       {b.time}
+//                                     </span>
+//                                   )}
 //                                   <span className="inline-flex items-center gap-1">
 //                                     <span className="w-1 h-1 rounded-full bg-slate-400" />
 //                                     {b.durationMin || 60} min
@@ -1571,7 +774,7 @@
 //                 </motion.div>
 //               )}
 
-//               {/* COMPLETED TAB (with pagination) */}
+//               {/* COMPLETED TAB */}
 //               {activeTab === "completed" && (
 //                 <motion.div
 //                   key="completed"
@@ -1603,16 +806,20 @@
 //                                   {clientName(b)}
 //                                 </h4>
 //                                 <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 mt-1">
-//                                   <span className="inline-flex items-center gap-1">
-//                                     <Calendar size={12} />
-//                                     {new Date(
-//                                       b.date
-//                                     ).toLocaleDateString()}
-//                                   </span>
-//                                   <span className="inline-flex items-center gap-1">
-//                                     <Clock size={12} />
-//                                     {b.time}
-//                                   </span>
+//                                   {b.date && (
+//                                     <span className="inline-flex items-center gap-1">
+//                                       <Calendar size={12} />
+//                                       {new Date(
+//                                         b.date
+//                                       ).toLocaleDateString()}
+//                                     </span>
+//                                   )}
+//                                   {b.time && (
+//                                     <span className="inline-flex items-center gap-1">
+//                                       <Clock size={12} />
+//                                       {b.time}
+//                                     </span>
+//                                   )}
 //                                 </div>
 //                                 <div className="flex flex-wrap gap-2 mt-3">
 //                                   <Badge color="green">
@@ -1667,7 +874,7 @@
 //                 </motion.div>
 //               )}
 
-//               {/* EARNINGS TAB (with pagination for recent bookings) */}
+//               {/* EARNINGS TAB */}
 //               {activeTab === "earnings" && (
 //                 <motion.div
 //                   key="earnings"
@@ -1694,7 +901,10 @@
 //                             Total Earnings
 //                           </div>
 //                           <div className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-//                             <Wallet size={18} className="text-emerald-600" />
+//                             <Wallet
+//                               size={18}
+//                               className="text-emerald-600"
+//                             />
 //                             {payoutSummary.totalEarnings.toFixed(2)}{" "}
 //                             {payoutSummary.currency || "LKR"}
 //                           </div>
@@ -1796,7 +1006,7 @@
 //                 </motion.div>
 //               )}
 
-//               {/* BLOGS TAB (with pagination) */}
+//               {/* BLOGS TAB */}
 //               {activeTab === "blogs" && (
 //                 <motion.div
 //                   key="blogs"
@@ -1989,7 +1199,63 @@ const Badge = ({ children, color = "stone" }) => {
 const CLIENT_DEFAULT_AVATAR =
   "https://cdn-icons-png.flaticon.com/512/219/219969.png";
 
+// --- Time helpers (10‑minute join window) ---
 const PRE_JOIN_MINUTES = 10;
+
+const getBookingStartEnd = (b) => {
+  let start = b.startDateTime ? new Date(b.startDateTime) : null;
+  let end = b.endDateTime ? new Date(b.endDateTime) : null;
+
+  if (!start && b.date && b.time) {
+    const iso = `${b.date}T${b.time}:00`;
+    start = new Date(iso);
+  }
+  if (!end && start) {
+    const duration = b.durationMin || 60;
+    end = new Date(start.getTime() + duration * 60 * 1000);
+  }
+
+  return { start, end };
+};
+
+const canJoinBookingNow = (b) => {
+  const { start, end } = getBookingStartEnd(b);
+  if (!start || !end) return false;
+
+  const now = new Date();
+  const joinOpensAt = new Date(
+    start.getTime() - PRE_JOIN_MINUTES * 60 * 1000
+  );
+
+  return now >= joinOpensAt && now <= end;
+};
+
+const splitBookingsByTime = (items) => {
+  const now = new Date();
+  const upcoming = [];
+  const completed = [];
+
+  items.forEach((b) => {
+    const { start, end } = getBookingStartEnd(b);
+
+    if (!start || !end) {
+      upcoming.push(b);
+      return;
+    }
+
+    const isCompletedByStatus =
+      b.status === "completed" || b.status === "cancelled";
+    const isCompletedByTime = now > end;
+
+    if (isCompletedByStatus || isCompletedByTime) {
+      completed.push(b);
+    } else {
+      upcoming.push(b);
+    }
+  });
+
+  return { upcoming, completed };
+};
 
 const CounselorDashboard = ({ user }) => {
   const navigate = useNavigate();
@@ -2206,75 +1472,11 @@ const CounselorDashboard = ({ user }) => {
   }
 
   // --- Split bookings into upcoming & completed ---
-  const splitBookingsByTime = (items) => {
-    const now = new Date();
-    const upcoming = [];
-    const completed = [];
-
-    items.forEach((b) => {
-      let start = b.startDateTime ? new Date(b.startDateTime) : null;
-      let end = b.endDateTime ? new Date(b.endDateTime) : null;
-
-      if (!start && b.date && b.time) {
-        const [year, month, day] = b.date.split("-");
-        const [hour, minute] = b.time.split(":");
-        start = new Date(year, month - 1, day, hour, minute);
-      }
-      if (!end && start) {
-        const duration = b.durationMin || 60;
-        end = new Date(start.getTime() + duration * 60 * 1000);
-      }
-
-      if (!start || !end) {
-        upcoming.push(b);
-        return;
-      }
-
-      const isCompletedByStatus =
-        b.status === "completed" || b.status === "cancelled";
-      const isCompletedByTime = now > end;
-
-      if (isCompletedByStatus || isCompletedByTime) {
-        completed.push(b);
-      } else {
-        upcoming.push(b);
-      }
-    });
-
-    return { upcoming, completed };
-  };
-
   const { upcoming: upcomingSessions, completed: completedSessions } =
     splitBookingsByTime(bookings);
 
   const nextSession = upcomingSessions[0];
-
-  // Next session join window (10 mins before until end)
-  let nextCanJoin = false;
-  if (nextSession) {
-    let s = nextSession.startDateTime
-      ? new Date(nextSession.startDateTime)
-      : null;
-    let e = nextSession.endDateTime
-      ? new Date(nextSession.endDateTime)
-      : null;
-    if (!s && nextSession.date && nextSession.time) {
-      const [year, month, day] = nextSession.date.split("-");
-      const [hour, minute] = nextSession.time.split(":");
-      s = new Date(year, month - 1, day, hour, minute);
-    }
-    if (!e && s) {
-      const duration = nextSession.durationMin || 60;
-      e = new Date(s.getTime() + duration * 60 * 1000);
-    }
-    if (s && e) {
-      const now = new Date();
-      const joinOpensAt = new Date(
-        s.getTime() - PRE_JOIN_MINUTES * 60 * 1000
-      );
-      nextCanJoin = now >= joinOpensAt && now <= e;
-    }
-  }
+  const nextCanJoin = nextSession ? canJoinBookingNow(nextSession) : false;
 
   // Pagination slices
   const completedTotalPages = Math.max(
@@ -2478,26 +1680,6 @@ const CounselorDashboard = ({ user }) => {
                   </motion.div>
                 )}
               </AnimatePresence>
-
-              {/* Quick Stats */}
-              {/* <div className="mt-6 grid grid-cols-2 gap-3">
-                <div className="text-center p-3 bg-slate-50 rounded-lg">
-                  <div className="text-2xl font-bold text-emerald-600">
-                    {bookings.length}
-                  </div>
-                  <div className="text-[11px] text-slate-500 uppercase tracking-[0.12em]">
-                    Sessions
-                  </div>
-                </div>
-                <div className="text-center p-3 bg-slate-50 rounded-lg">
-                  <div className="text-2xl font-bold text-emerald-600">
-                    {blogs.length}
-                  </div>
-                  <div className="text-[11px] text-slate-500 uppercase tracking-[0.12em]">
-                    Blogs
-                  </div>
-                </div>
-              </div> */}
             </Card>
           </aside>
 
@@ -2594,31 +1776,8 @@ const CounselorDashboard = ({ user }) => {
                     </Card>
                   ) : (
                     upcomingSessions.map((b) => {
-                      let start = b.startDateTime
-                        ? new Date(b.startDateTime)
-                        : null;
-                      let end = b.endDateTime ? new Date(b.endDateTime) : null;
-
-                      if (!start && b.date && b.time) {
-                        const [year, month, day] = b.date.split("-");
-                        const [hour, minute] = b.time.split(":");
-                        start = new Date(year, month - 1, day, hour, minute);
-                      }
-                      if (!end && start) {
-                        const duration = b.durationMin || 60;
-                        end = new Date(
-                          start.getTime() + duration * 60 * 1000
-                        );
-                      }
-
-                      let canJoinNow = false;
-                      if (start && end) {
-                        const now = new Date();
-                        const joinOpensAt = new Date(
-                          start.getTime() - PRE_JOIN_MINUTES * 60 * 1000
-                        );
-                        canJoinNow = now >= joinOpensAt && now <= end;
-                      }
+                      const { start, end } = getBookingStartEnd(b);
+                      const canJoinNow = canJoinBookingNow(b);
 
                       return (
                         <Card key={b._id} className="p-6">
