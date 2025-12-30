@@ -105,44 +105,7 @@ const VideoCallPage = ({ user }) => {
     let streamClient;
     let callInstance;
 
-//     const init = async () => {
-//   if (joinedRef.current) return;
-//   joinedRef.current = true;
 
-//   try {
-//     const { data } = await API.get(`/stream/token/${bookingId}`, {
-//       headers: {
-//         Authorization: `Bearer ${localStorage.getItem("token")}`,
-//       },
-//     });
-
-//     if (!data.success) {
-//       throw new Error(data.message || "Not allowed to join this call");
-//     }
-
-//     const { apiKey, userId, token } = data;
-
-//     streamClient = StreamVideoClient.getOrCreateInstance({
-//       apiKey,
-//       user: {
-//         id: userId,
-//         name: user?.name || user?.fullName || userId,
-//       },
-//       token,
-//     });
-
-//     const callInstance = streamClient.call("default", bookingId);
-//     await callInstance.join({ create: true });
-
-//     setClient(streamClient);
-//     setCall(callInstance);
-//   } catch (err) {
-//     console.error("Error initializing video call:", err);
-//     setError(err.message || "Failed to join call");
-//   } finally {
-//     setLoading(false);
-//   }
-// };
 
 const init = async () => {
   if (joinedRef.current) return;
@@ -224,3 +187,41 @@ const init = async () => {
 
 export default VideoCallPage;
 
+//     const init = async () => {
+//   if (joinedRef.current) return;
+//   joinedRef.current = true;
+
+//   try {
+//     const { data } = await API.get(`/stream/token/${bookingId}`, {
+//       headers: {
+//         Authorization: `Bearer ${localStorage.getItem("token")}`,
+//       },
+//     });
+
+//     if (!data.success) {
+//       throw new Error(data.message || "Not allowed to join this call");
+//     }
+
+//     const { apiKey, userId, token } = data;
+
+//     streamClient = StreamVideoClient.getOrCreateInstance({
+//       apiKey,
+//       user: {
+//         id: userId,
+//         name: user?.name || user?.fullName || userId,
+//       },
+//       token,
+//     });
+
+//     const callInstance = streamClient.call("default", bookingId);
+//     await callInstance.join({ create: true });
+
+//     setClient(streamClient);
+//     setCall(callInstance);
+//   } catch (err) {
+//     console.error("Error initializing video call:", err);
+//     setError(err.message || "Failed to join call");
+//   } finally {
+//     setLoading(false);
+//   }
+// };
